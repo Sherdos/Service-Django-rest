@@ -16,16 +16,18 @@ from .serializers import*
 
 class ServiceList(APIView):
     def get(self, request):
-        lst = Service.objects.all().values()
-        return Response({'service':list(lst)})
+        s = Service.objects.all()
+        return Response({'service':ServiceSerializer(s,many=True).data})
     
     def post(self,request):
+        serializer = ServiceSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
         service_new = Service.objects.create(
             title=request.data['title'],
             description=request.data['description'],
             price=request.data['price'],
             end=request.data['end'],
         )
-        return Response({'post':model_to_dict(service_new)})
+        return Response({'service':ServiceSerializer(service_new).data})
         
         
