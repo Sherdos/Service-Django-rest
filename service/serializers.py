@@ -7,6 +7,7 @@ from .models import *
 
 
 class ServiceSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
     title=serializers.CharField(max_length=255)
     description = serializers.CharField()
     create = serializers.DateField(read_only=True)
@@ -14,6 +15,17 @@ class ServiceSerializer(serializers.Serializer):
     start = serializers.DateTimeField(read_only=True)
     end = serializers.DateTimeField()
     
+    
+    def create(self, validated_data):
+        return Service.objects.create(**validated_data)
+    
+    def update(self, instance, validated_data):
+        instance.title=validated_data.get('title', instance.title)
+        instance.description=validated_data.get('description', instance.description)
+        instance.price=validated_data.get('price', instance.price)
+        instance.end=validated_data.get('end', instance.end)
+        instance.save()
+        return instance
     
 # def encode():
 #     model = ServiceModel('Python','desription: Python Это очень легко')
