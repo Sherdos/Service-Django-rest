@@ -59,7 +59,7 @@ ROOT_URLCONF = 'Service.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'frontent/public')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -135,6 +135,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:1000",
+    "http://localhost:2000",
+    "http://localhost:3000",
+    "http://localhost:4000",
+    "http://localhost:5000",
+    "http://localhost:6000",
+    "http://localhost:7000",
+    "http://localhost:8000",
+    "http://localhost:9000",
+]
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
@@ -143,3 +155,7 @@ REST_FRAMEWORK = {
         
         ]
 }
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontent/src/')]

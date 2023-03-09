@@ -6,6 +6,7 @@ from django.db import models
 class Service(models.Model):
     title=models.CharField(max_length=255,verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
+    image = models.ImageField(upload_to='service/photo/' )
     create = models.DateField(auto_now_add=True, verbose_name='Время создание')
     price = models.PositiveIntegerField(verbose_name='Цена')
     start = models.DateTimeField(auto_now_add=True, verbose_name='Начать')
